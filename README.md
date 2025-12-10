@@ -24,7 +24,7 @@
 
 | 🏗️ **Clean Architecture** | 📱 **Modern UI** | 🧪 **Testable** | 🔒 **Secure** |
 |:---:|:---:|:---:|:---:|
-| Multi-module setup with clear separation of concerns | Jetpack Compose with Material 3 Design | Comprehensive unit & UI tests | EncryptedSharedPreferences for sensitive data |
+| Multi-module setup with clear separation of concerns | Jetpack Compose with Material 3 Design | Comprehensive unit & UI tests | NDK/C++ API keys + Encrypted storage |
 
 ---
 
@@ -178,6 +178,11 @@ BakingApp/
 │   │       └── DatabaseModule.kt        # Hilt database providers
 │   │
 │   ├── security/                        # Security utilities
+│   │   ├── cpp/                         # Native code (NDK)
+│   │   │   ├── CMakeLists.txt           # CMake build config
+│   │   │   └── native-keys.cpp          # XOR-obfuscated keys
+│   │   ├── ApiKeyProvider.kt            # Key provider interface
+│   │   ├── NativeKeyProvider.kt         # JNI bridge to native
 │   │   ├── EncryptedPreferencesManager.kt
 │   │   ├── SecureTokenManager.kt        # Token management
 │   │   └── di/
@@ -576,11 +581,32 @@ fun `login with valid credentials returns success`() = runTest {
 
 | Feature | Implementation |
 |:--------|:---------------|
+| **Native API Key Storage** | NDK/C++ with XOR obfuscation for API keys |
 | **Encrypted Storage** | EncryptedSharedPreferences for tokens |
 | **No Sensitive Logs** | ProGuard rules remove logging in release |
 | **Certificate Pinning** | Ready for production configuration |
 | **Clear-text Disabled** | Network security config enforces HTTPS |
 | **Code Obfuscation** | R8 minification for release builds |
+
+### 🔑 Native Key Provider
+
+API keys are stored securely in native C++ code with multiple protection layers:
+
+```kotlin
+@Inject
+lateinit var apiKeyProvider: ApiKeyProvider
+
+// Get API key from native storage
+val apiKey = apiKeyProvider.getApiKey()
+```
+
+**Security Layers:**
+- 🛡️ **Native Code** - Compiled to ARM/x86 assembly (hard to decompile)
+- 🔐 **XOR Obfuscation** - Keys not visible in hex editors
+- 📦 **Package Verification** - Keys only work with correct package name
+- ✂️ **String Splitting** - No complete key in one location
+
+See [security.md](docs/security.md) for detailed implementation guide.
 
 ---
 
@@ -675,7 +701,7 @@ Detailed documentation is available in the `/docs` folder:
 | [architecture.md](docs/architecture.md) | Clean Architecture deep dive |
 | [modules.md](docs/modules.md) | Module structure and dependencies |
 | [networking.md](docs/networking.md) | Network layer implementation |
-| [security.md](docs/security.md) | Security best practices |
+| [security.md](docs/security.md) | Security: NDK keys, encryption, network |
 | [testing.md](docs/testing.md) | Testing strategy and examples |
 | [performance.md](docs/performance.md) | Performance optimization guide |
 | [compose_guidelines.md](docs/compose_guidelines.md) | Jetpack Compose best practices |

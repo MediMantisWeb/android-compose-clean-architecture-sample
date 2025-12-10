@@ -237,7 +237,7 @@ private fun HomeTestContent(
             uiState.errorMessage != null && uiState.recipes.isEmpty() -> {
                 ErrorView(
                     title = "Couldn't load recipes",
-                    message = uiState.errorMessage,
+                    message = uiState.errorMessage ?: "",
                     modifier = Modifier.padding(paddingValues)
                 )
             }
