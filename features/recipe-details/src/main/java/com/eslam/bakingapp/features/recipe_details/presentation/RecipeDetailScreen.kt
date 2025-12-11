@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,12 @@ import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -65,6 +72,7 @@ import com.eslam.bakingapp.features.home.domain.model.Step
 @Composable
 fun RecipeDetailScreen(
     onNavigateBack: () -> Unit,
+    onStartTimer: (recipeName: String, cookingTime: Int) -> Unit = { _, _ -> },
     viewModel: RecipeDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -74,7 +82,8 @@ fun RecipeDetailScreen(
         onNavigateBack = onNavigateBack,
         onTabSelected = viewModel::onTabSelected,
         onFavoriteClick = viewModel::onFavoriteClick,
-        onRetry = viewModel::loadRecipeDetails
+        onRetry = viewModel::loadRecipeDetails,
+        onStartTimer = onStartTimer
     )
 }
 
@@ -85,7 +94,8 @@ private fun RecipeDetailContent(
     onNavigateBack: () -> Unit,
     onTabSelected: (Int) -> Unit,
     onFavoriteClick: () -> Unit,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
+    onStartTimer: (recipeName: String, cookingTime: Int) -> Unit = { _, _ -> }
 ) {
     Scaffold(
         topBar = {
@@ -107,6 +117,23 @@ private fun RecipeDetailContent(
                 },
                 actions = {
                     if (uiState.recipe != null) {
+                        // Timer button
+                        IconButton(
+                            onClick = { 
+                                onStartTimer(
+                                    uiState.recipe.name,
+                                    uiState.recipe.cookTimeMinutes
+                                )
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Timer,
+                                contentDescription = "Start Timer",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        
+                        // Favorite button
                         IconButton(onClick = onFavoriteClick) {
                             Icon(
                                 imageVector = if (uiState.recipe.isFavorite) {
@@ -128,6 +155,28 @@ private fun RecipeDetailContent(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
             )
+        },
+        floatingActionButton = {
+            // FAB to start cooking timer with recipe cook time
+            if (uiState.recipe != null) {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        onStartTimer(
+                            uiState.recipe.name,
+                            uiState.recipe.cookTimeMinutes
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Timer,
+                            contentDescription = null
+                        )
+                    },
+                    text = { Text("Start Timer") },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
         }
     ) { paddingValues ->
         Box(
@@ -155,7 +204,8 @@ private fun RecipeDetailContent(
                     RecipeDetailBody(
                         recipe = uiState.recipe,
                         selectedTabIndex = uiState.selectedTabIndex,
-                        onTabSelected = onTabSelected
+                        onTabSelected = onTabSelected,
+                        onStartTimer = onStartTimer
                     )
                 }
             }
@@ -167,7 +217,8 @@ private fun RecipeDetailContent(
 private fun RecipeDetailBody(
     recipe: Recipe,
     selectedTabIndex: Int,
-    onTabSelected: (Int) -> Unit
+    onTabSelected: (Int) -> Unit,
+    onStartTimer: (recipeName: String, cookingTime: Int) -> Unit = { _, _ -> }
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -289,7 +340,11 @@ private fun RecipeDetailBody(
                         modifier = Modifier.padding(
                             horizontal = 16.dp,
                             vertical = 8.dp
-                        )
+                        ),
+                        onStartStepTimer = { stepNum ->
+                            // Start timer with default 5 minutes for step
+                            onStartTimer("${recipe.name} - Step $stepNum", 5)
+                        }
                     )
                 }
             }
@@ -400,7 +455,8 @@ private fun IngredientItem(
 private fun StepItem(
     stepNumber: Int,
     step: Step,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onStartStepTimer: ((stepNumber: Int) -> Unit)? = null
 ) {
     Card(
         modifier = modifier
@@ -414,7 +470,8 @@ private fun StepItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalAlignment = Alignment.Top
         ) {
             // Step number circle
             Box(
@@ -439,6 +496,34 @@ private fun StepItem(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
+                
+                // Show timer button for steps that mention time
+                if (step.description.contains("minute", ignoreCase = true) ||
+                    step.description.contains("hour", ignoreCase = true) ||
+                    step.description.contains("bake", ignoreCase = true) ||
+                    step.description.contains("cook", ignoreCase = true)) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = { onStartStepTimer?.invoke(stepNumber) },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        ),
+                        modifier = Modifier.height(32.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Timer,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "Set Timer",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
             }
         }
     }
@@ -466,14 +551,15 @@ private fun RecipeDetailPreview() {
                     ),
                     steps = listOf(
                         Step("1", 1, "Preheat oven to 350°F", null, null),
-                        Step("2", 2, "Mix dry ingredients", null, null)
+                        Step("2", 2, "Bake for 12 minutes until golden", null, null)
                     )
                 )
             ),
             onNavigateBack = {},
             onTabSelected = {},
             onFavoriteClick = {},
-            onRetry = {}
+            onRetry = {},
+            onStartTimer = { _, _ -> }
         )
     }
 }

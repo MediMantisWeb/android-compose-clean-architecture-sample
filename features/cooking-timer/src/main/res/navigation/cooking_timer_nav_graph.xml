@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Navigation Graph for Cooking Timer feature.
+    
+    Demonstrates Navigation Component concepts:
+    - Destinations (fragments)
+    - Actions (navigation between destinations)
+    - Arguments (passing data between destinations)
+    - Animations (enter/exit transitions)
+    - PopUpTo (back stack management)
+-->
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cooking_timer_nav_graph"
+    app:startDestination="@id/timerListFragment">
+
+    <!--
+        Timer List - Start destination
+        Shows all timers with controls
+    -->
+    <fragment
+        android:id="@+id/timerListFragment"
+        android:name="com.eslam.bakingapp.features.cookingtimer.presentation.list.TimerListFragment"
+        android:label="@string/cooking_timer_title"
+        tools:layout="@layout/fragment_timer_list">
+
+        <!-- Navigate to Timer Detail -->
+        <action
+            android:id="@+id/action_timerList_to_timerDetail"
+            app:destination="@id/timerDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!-- Navigate to Create Timer -->
+        <action
+            android:id="@+id/action_timerList_to_createTimer"
+            app:destination="@id/createTimerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!-- Navigate to Presets -->
+        <action
+            android:id="@+id/action_timerList_to_presets"
+            app:destination="@id/timerPresetsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <!--
+        Timer Detail - Shows detailed view of a single timer
+        Receives timerId as an argument
+    -->
+    <fragment
+        android:id="@+id/timerDetailFragment"
+        android:name="com.eslam.bakingapp.features.cookingtimer.presentation.detail.TimerDetailFragment"
+        android:label="@string/timer_detail_title"
+        tools:layout="@layout/fragment_timer_detail">
+
+        <!-- Timer ID argument - required -->
+        <argument
+            android:name="timerId"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
+
+    <!--
+        Create Timer - Form to create a new timer
+    -->
+    <fragment
+        android:id="@+id/createTimerFragment"
+        android:name="com.eslam.bakingapp.features.cookingtimer.presentation.create.CreateTimerFragment"
+        android:label="@string/create_timer_title"
+        tools:layout="@layout/fragment_create_timer">
+
+        <!-- Optional preset to pre-fill form -->
+        <argument
+            android:name="presetId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+    </fragment>
+
+    <!--
+        Timer Presets - List of preset timers
+    -->
+    <fragment
+        android:id="@+id/timerPresetsFragment"
+        android:name="com.eslam.bakingapp.features.cookingtimer.presentation.presets.TimerPresetsFragment"
+        android:label="@string/timer_presets_title"
+        tools:layout="@layout/fragment_timer_presets">
+
+    </fragment>
+
+</navigation>

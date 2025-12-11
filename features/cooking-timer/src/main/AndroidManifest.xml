@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!-- 
+            CookingTimerActivity demonstrates Activity lifecycle management
+            with XML layouts and Navigation Component.
+            
+            This activity can be launched from anywhere in the app and manages
+            its own navigation graph with multiple fragments.
+        -->
+        <activity
+            android:name=".presentation.activity.CookingTimerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CookingTimer"
+            android:label="@string/cooking_timer_title"
+            android:parentActivityName="com.eslam.bakingapp.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.eslam.bakingapp.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screen Titles -->
+    <string name="cooking_timer_title">Cooking Timer</string>
+    <string name="timer_detail_title">Timer Details</string>
+    <string name="create_timer_title">Create Timer</string>
+    <string name="timer_presets_title">Timer Presets</string>
+    
+    <!-- Timer Actions -->
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="delete">Delete</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="add_timer">Add Timer</string>
+    <string name="create_timer">Create Timer</string>
+    <string name="delete_timer">Delete Timer</string>
+    
+    <!-- Timer States -->
+    <string name="active_timers_count">%d active</string>
+    <string name="of_duration">/ %s</string>
+    <string name="total_duration_format">Total: %s</string>
+    
+    <!-- Empty/Error States -->
+    <string name="no_timers">No Timers Yet</string>
+    <string name="create_first_timer_hint">Create your first cooking timer to get started</string>
+    <string name="error">Error</string>
+    
+    <!-- Form Labels -->
+    <string name="timer_name_hint">Timer Name</string>
+    <string name="timer_description_hint">Description (optional)</string>
+    <string name="duration_label">Duration</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    
+    <!-- Dialogs -->
+    <string name="delete_timer_title">Delete Timer?</string>
+    <string name="delete_timer_message">This timer will be permanently deleted. This action cannot be undone.</string>
+    
+    <!-- Notifications/Messages -->
+    <string name="timer_completed_message">%s is done!</string>
+    
+    <!-- Accessibility -->
+    <string name="category_icon">Category icon</string>
+</resources>

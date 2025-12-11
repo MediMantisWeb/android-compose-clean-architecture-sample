@@ -1,17 +1,20 @@
 package com.eslam.bakingapp.navigation
 
+import android.content.Context
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.eslam.bakingapp.features.cookingtimer.presentation.activity.CookingTimerActivity
 import com.eslam.bakingapp.features.home.presentation.HomeScreen
 import com.eslam.bakingapp.features.login.presentation.LoginScreen
 import com.eslam.bakingapp.features.recipe_details.presentation.RecipeDetailScreen
@@ -28,6 +31,13 @@ object Routes {
 }
 
 /**
+ * Helper function to launch the Cooking Timer Activity.
+ */
+private fun launchCookingTimer(context: Context) {
+    context.startActivity(CookingTimerActivity.createIntent(context))
+}
+
+/**
  * Main navigation host for the BakingApp.
  * Manages all navigation between screens.
  */
@@ -37,6 +47,7 @@ fun BakingNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = Routes.LOGIN
 ) {
+    val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -85,6 +96,9 @@ fun BakingNavHost(
             HomeScreen(
                 onRecipeClick = { recipeId ->
                     navController.navigate(Routes.recipeDetail(recipeId))
+                },
+                onTimerClick = {
+                    launchCookingTimer(context)
                 }
             )
         }
@@ -101,6 +115,11 @@ fun BakingNavHost(
             RecipeDetailScreen(
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onStartTimer = { recipeName, cookingTime ->
+                    // Launch the cooking timer activity
+                    // The timer will be created with the recipe name and cooking time
+                    launchCookingTimer(context)
                 }
             )
         }

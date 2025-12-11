@@ -18,6 +18,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -51,6 +54,7 @@ import com.eslam.bakingapp.features.home.domain.model.Recipe
 @Composable
 fun HomeScreen(
     onRecipeClick: (String) -> Unit,
+    onTimerClick: () -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -62,7 +66,8 @@ fun HomeScreen(
         onRecipeClick = onRecipeClick,
         onFavoriteClick = viewModel::onFavoriteClick,
         onRefresh = viewModel::refreshRecipes,
-        onRetry = viewModel::loadRecipes
+        onRetry = viewModel::loadRecipes,
+        onTimerClick = onTimerClick
     )
 }
 
@@ -75,7 +80,8 @@ private fun HomeContent(
     onRecipeClick: (String) -> Unit,
     onFavoriteClick: (String) -> Unit,
     onRefresh: () -> Unit,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
+    onTimerClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -88,10 +94,33 @@ private fun HomeContent(
                         )
                     }
                 },
+                actions = {
+                    // Timer button in toolbar
+                    IconButton(onClick = onTimerClick) {
+                        Icon(
+                            imageVector = Icons.Default.Timer,
+                            contentDescription = "Cooking Timer",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
             )
+        },
+        floatingActionButton = {
+            // FAB for quick access to timer
+            FloatingActionButton(
+                onClick = onTimerClick,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Timer,
+                    contentDescription = "Cooking Timer"
+                )
+            }
         }
     ) { paddingValues ->
         Box(
@@ -285,7 +314,8 @@ private fun HomeScreenPreview() {
             onRecipeClick = {},
             onFavoriteClick = {},
             onRefresh = {},
-            onRetry = {}
+            onRetry = {},
+            onTimerClick = {}
         )
     }
 }

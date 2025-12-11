@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":features:login"))
     implementation(project(":features:home"))
     implementation(project(":features:recipe-details"))
+    implementation(project(":features:cooking-timer"))
     
     // Core modules
     implementation(project(":core:common"))

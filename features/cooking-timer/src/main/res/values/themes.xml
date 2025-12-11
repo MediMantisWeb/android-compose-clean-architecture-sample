@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        CookingTimer Theme - Inherits from Material3 DayNight theme
+        for automatic dark mode support.
+        
+        This demonstrates proper theme definition for a feature module
+        that is compatible with the main app theme.
+    -->
+    <style name="Theme.CookingTimer" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/timer_primary</item>
+        <item name="colorPrimaryContainer">@color/timer_primary_container</item>
+        <item name="colorOnPrimary">@color/timer_on_primary</item>
+        <item name="colorOnPrimaryContainer">@color/timer_on_primary_container</item>
+        
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/timer_secondary</item>
+        <item name="colorSecondaryContainer">@color/timer_secondary_container</item>
+        <item name="colorOnSecondary">@color/timer_on_secondary</item>
+        <item name="colorOnSecondaryContainer">@color/timer_on_secondary_container</item>
+        
+        <!-- Error color -->
+        <item name="colorError">@color/error</item>
+        
+        <!-- System bars -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    
+    <!-- Theme colors for the cooking timer feature -->
+    <color name="timer_primary">#FF6D00</color>
+    <color name="timer_primary_container">#FFE0B2</color>
+    <color name="timer_on_primary">#FFFFFF</color>
+    <color name="timer_on_primary_container">#E65100</color>
+    
+    <color name="timer_secondary">#795548</color>
+    <color name="timer_secondary_container">#D7CCC8</color>
+    <color name="timer_on_secondary">#FFFFFF</color>
+    <color name="timer_on_secondary_container">#3E2723</color>
+</resources>
